@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 //import LoginGoogle from './LoginGoogle';
-//import logo from './img/logo.png';
-import firebase from './firebase/ConfiFire';
+import Logo from './Logo';
+import firebase from './ConfiFirebase';
 
 
 class Login extends Component {
@@ -40,10 +40,20 @@ class Login extends Component {
     .catch(error =>{
       console.log(error);
     });
+    
   }
+   handleAuth(){
+     const provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider)
+        .then(result => console.log(`${result.user.email} ha iniciado seión`))
+         .catch(error => console.log(`Error${error.code}: ${error.message}`));
+    }
   render(){
     return(
       <div className="col-md-6">
+        <div>
+           <Logo />
+        </div>
         <form>
           <div class="form-group">
             <label for="email">Ingrese su correo</label>
@@ -56,6 +66,7 @@ class Login extends Component {
           </div>
           <button type="submit" onClick={this.login} class="btn btn-primary">Login</button>
           <button onClick={this.signup} style={{marginLeft: '25px'}} className="btn btn-success">Signup</button>
+          <button onClick={this.handleAuth} style={{marginLeft: '25px'}} className="btn btn-danger">google</button>
           </form>
         </div>
     );

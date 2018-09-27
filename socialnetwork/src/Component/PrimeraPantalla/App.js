@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import firebase from './firebase/ConfiFire';
-import Muro from './Muro';
+import firebase from './ConfiFirebase';
+import Muro from '../segundaPantalla/Muro';
 import Login from './Login';
+import './styles.css'
 
 class App extends Component{
 
@@ -20,16 +21,19 @@ class App extends Component{
             //console.log(user);
             if(user){
                 this.setState({user});
-              return(this.state.user ? (<Muro />) : (<Login />))      
-        
-        
             }
             else{
                 this.setState({user: null});
             }
         });
     }
-   
+   render(){
+       return(
+           <div>
+               {this.state.user ? (<Muro/>) : (<Login/>)}
+           </div>
+       );
+   }
 }
 
  export default App;
